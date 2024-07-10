@@ -7,8 +7,12 @@ function loadPhones(searchText){
 function displayData(phones){
     const phoneContainer = document.getElementById('phone-container');
     phoneContainer.innerHTML = '';
-    for(const phone of phones.data){
-        console.log(phone);
+
+  
+    phones = phones.data.slice(0,12);
+
+    for(const phone of phones){
+        // console.log(phone);
         const phoneCard = document.createElement('div');
         phoneCard.classList = `card bg-gray-100 p-4 m-7  shadow-xl`;
         phoneCard.innerHTML = `
@@ -18,7 +22,7 @@ function displayData(phones){
         alt="Shoes" />
             </figure>
             <div class="card-body">
-              <h2 class="card-title">Shoes!</h2>
+              <h2 class="card-title">${phone.phone_name}</h2>
               <p>If a dog chews shoes whose shoes does he choose?</p>
             </div>
         `;
