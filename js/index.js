@@ -1,11 +1,12 @@
-function loadPhones(){
-    fetch(' https://openapi.programming-hero.com/api/phones?search=iphone')
+function loadPhones(searchText){
+    fetch(`https://openapi.programming-hero.com/api/phones?search=${searchText}`)
     .then(res=>res.json())
     .then(data => displayData(data))
 }
 
 function displayData(phones){
     const phoneContainer = document.getElementById('phone-container');
+    phoneContainer.innerHTML = '';
     for(const phone of phones.data){
         console.log(phone);
         const phoneCard = document.createElement('div');
@@ -26,4 +27,9 @@ function displayData(phones){
     }
 }
 
-loadPhones();
+const searchPhones = () => {
+    const textArea = document.getElementById('textArea');
+    const searchText = textArea.value;
+    loadPhones(searchText);
+}
+
