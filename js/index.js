@@ -5,11 +5,20 @@ function loadPhones(searchText){
 }
 
 function displayData(phones){
+
+    const allPhones = phones.data;
     const phoneContainer = document.getElementById('phone-container');
     phoneContainer.innerHTML = '';
 
+    const load = document.getElementById("button-container");
+    if(allPhones.length > 12){
+        load.classList.remove('hidden');
+    }
+    else{
+        load.classList.add('hidden');
+    }
   
-    phones = phones.data.slice(0,12);
+    phones = allPhones.slice(0,12);
 
     for(const phone of phones){
         // console.log(phone);
