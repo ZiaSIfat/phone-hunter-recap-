@@ -38,11 +38,26 @@ function displayData(phones){
         phoneContainer.appendChild(phoneCard);
         
     }
+    toggleSpinner(false);
+
 }
 
+// toggleSpinner(false);
+
 const searchPhones = () => {
+    toggleSpinner(true);
     const textArea = document.getElementById('textArea');
     const searchText = textArea.value;
     loadPhones(searchText);
+}
+
+const toggleSpinner =(isTrue) =>{
+    const spinner = document.getElementById('spinner');
+    if(isTrue){
+        spinner.classList.remove('hidden');
+    }
+    else{
+        spinner.classList.add('hidden');
+    }
 }
 
