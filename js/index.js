@@ -1,27 +1,35 @@
-function loadPhones(searchText){
+function loadPhones(searchText, isShowAll){
     fetch(`https://openapi.programming-hero.com/api/phones?search=${searchText}`)
     .then(res=>res.json())
-    .then(data => displayData(data))
+    .then(data => displayData(data, isShowAll))
 }
 
-function displayData(phones){
+const displayData = (phones,isShowAll) =>{
 
     const allPhones = phones.data;
     const phoneContainer = document.getElementById('phone-container');
     phoneContainer.innerHTML = '';
 
     const load = document.getElementById("button-container");
-    if(allPhones.length > 12){
+    if(allPhones.length > 12 && !isShowAll){
         load.classList.remove('hidden');
     }
     else{
         load.classList.add('hidden');
     }
+
+    console.log('is  showall',isShowAll);
   
-    phones = allPhones.slice(0,12);
+    if(!isShowAll){
+        phones = allPhones.slice(0,12);
+    }
+    else{
+        phones = allPhones;
+    }
+    // console.log(phones);
 
     for(const phone of phones){
-        // console.log(phone);
+        console.log(phones);
         const phoneCard = document.createElement('div');
         phoneCard.classList = `card bg-gray-100 p-4 m-7  shadow-xl`;
         phoneCard.innerHTML = `
@@ -33,22 +41,25 @@ function displayData(phones){
             <div class="card-body">
               <h2 class="card-title">${phone.phone_name}</h2>
               <p>If a dog chews shoes whose shoes does he choose?</p>
+              <div class="card-actions justify-center">
+              <button class="btn btn-primary">Show Details</button>
+            </div>
             </div>
         `;
         phoneContainer.appendChild(phoneCard);
         
     }
+
     toggleSpinner(false);
 
 }
 
-// toggleSpinner(false);
 
-const searchPhones = () => {
+const searchPhones = (isShowAll) => {
     toggleSpinner(true);
     const textArea = document.getElementById('textArea');
     const searchText = textArea.value;
-    loadPhones(searchText);
+    loadPhones(searchText,isShowAll);
 }
 
 const toggleSpinner =(isTrue) =>{
@@ -59,5 +70,9 @@ const toggleSpinner =(isTrue) =>{
     else{
         spinner.classList.add('hidden');
     }
+}
+
+const isShowAll = () =>{
+    searchPhones(true);
 }
 
