@@ -42,7 +42,7 @@ const displayData = (phones,isShowAll) =>{
               <h2 class="card-title">${phone.phone_name}</h2>
               <p>If a dog chews shoes whose shoes does he choose?</p>
               <div class="card-actions justify-center">
-              <button class="btn btn-primary">Show Details</button>
+              <button onclick="handlePhoneDetail('${phone.slug}')" class="btn btn-primary">Show Details</button>
             </div>
             </div>
         `;
@@ -51,6 +51,32 @@ const displayData = (phones,isShowAll) =>{
     }
 
     toggleSpinner(false);
+
+}
+
+const handlePhoneDetail = (id) =>{
+    console.log('clicked',id);
+    fetch(`https://openapi.programming-hero.com/api/phone/${id}`)
+    .then(res => res.json())
+    .then(data =>displayDetail(data) )
+
+    
+}
+
+const displayDetail = (phones) =>{
+    const phone = phones.data;
+    console.log(phone);
+    const modalTitle = document.getElementById('modal-title');
+    modalTitle.innerText = phone.name;
+    const detailContainer = document.getElementById('detail-container');
+    detailContainer.innerHTML = `
+    <img src="${phone.image}" alt="">
+    <h4>GPS:<span> ${phone.others?.GPS ? phone.others.GPS : 'NO GPS'}</span></h4>
+    <p>Memory: ${phone?.mainFeatures?.memory}</p>
+    <p>Display: ${phone?.mainFeatures?.displaySize}</p>
+    <p>Storage: ${phone?.mainFeatures?.storage}</p>
+    `;
+    show_detail.showModal();
 
 }
 
