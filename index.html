@@ -8,8 +8,8 @@
 <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body>
-    <h1>Phone Hunter</h1>
-    <section class="bg-white p-4 m-7">
+    <h1 class="text-3xl font-bold text-teal-400 text-center my-5">Phone Hunter</h1>
+    <section class="bg-white p-4 m-7 rounded-lg">
         <input id="textArea" type="text" placeholder="Search" class="input input-bordered w-full max-w-xs" />
         <button onclick="searchPhones()" class="btn btn-accent">Accent</button>
     </section>
@@ -21,21 +21,21 @@
         </div>
         <div id="phone-container" class="grid gap-4 grid-cols-1 lg:grid-cols-3">     
         </div>
-        <div id="button-container" class="m-7 hidden">
+        <div id="button-container" class="m-7 hidden text-center">
             <button onclick="isShowAll()" class="btn btn-accent">ShowAll</button>
         </div>
     </section>
 
     <!-- Open the modal using ID.showModal() method -->
-<dialog id="show_detail" class="modal modal-bottom sm:modal-middle">
+<dialog id="show_detail" class="modal modal-bottom sm:modal-middle p-10">
   <div class="modal-box">
-    <h3 id="modal-title" class="text-lg font-bold"></h3>
-        <div id="detail-container">
+    <h3 id="modal-title" class="text-center text-lg font-bold mb-3"></h3>
+        <div id="detail-container" class="space-y-5">
 
         </div>
       <form method="dialog">
         <!-- if there is a button in form, it will close the modal -->
-        <button class="btn">Close</button>
+        <button class="btn btn-accent my-5">Close</button>
       </form>
     </div>
   </div>

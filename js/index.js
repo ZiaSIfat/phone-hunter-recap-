@@ -26,10 +26,8 @@ const displayData = (phones,isShowAll) =>{
     else{
         phones = allPhones;
     }
-    // console.log(phones);
 
     for(const phone of phones){
-        console.log(phones);
         const phoneCard = document.createElement('div');
         phoneCard.classList = `card bg-gray-100 p-4 m-7  shadow-xl`;
         phoneCard.innerHTML = `
@@ -40,9 +38,8 @@ const displayData = (phones,isShowAll) =>{
             </figure>
             <div class="card-body">
               <h2 class="card-title">${phone.phone_name}</h2>
-              <p>If a dog chews shoes whose shoes does he choose?</p>
               <div class="card-actions justify-center">
-              <button onclick="handlePhoneDetail('${phone.slug}')" class="btn btn-primary">Show Details</button>
+              <button onclick="handlePhoneDetail('${phone.slug}')" class="btn btn-accent">Show Details</button>
             </div>
             </div>
         `;
@@ -55,17 +52,14 @@ const displayData = (phones,isShowAll) =>{
 }
 
 const handlePhoneDetail = (id) =>{
-    console.log('clicked',id);
     fetch(`https://openapi.programming-hero.com/api/phone/${id}`)
     .then(res => res.json())
     .then(data =>displayDetail(data) )
-
-    
 }
 
 const displayDetail = (phones) =>{
     const phone = phones.data;
-    console.log(phone);
+    const mainFeatures = phone?.mainFeatures?.sensors;
     const modalTitle = document.getElementById('modal-title');
     modalTitle.innerText = phone.name;
     const detailContainer = document.getElementById('detail-container');
@@ -75,7 +69,18 @@ const displayDetail = (phones) =>{
     <p>Memory: ${phone?.mainFeatures?.memory}</p>
     <p>Display: ${phone?.mainFeatures?.displaySize}</p>
     <p>Storage: ${phone?.mainFeatures?.storage}</p>
+    <h4>Sensors: </h4>
     `;
+
+    for(item of mainFeatures){
+       
+        const p = document.createElement('p');
+        p.innerText =item ;
+        console.log(p);
+        detailContainer.appendChild(p);
+     }
+
+
     show_detail.showModal();
 
 }
